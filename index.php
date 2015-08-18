@@ -12,7 +12,7 @@ use Parse\ParseException;
 use Parse\ParseClient;
 use ParseSchema\ParseSchema;
 
-require 'vendor/autoload.php'; //if you didn't get the SDK using composer thn it should be require 'autoload.php';
+require './autoload.php'; //if you didn't get the SDK using composer thn it should be require 'autoload.php';
 require './config.php'; // This is where I stored the keys used in initialize line 20
 require './ParseSchema.php';
 
@@ -28,7 +28,7 @@ try {
     /*
      * The Key in $chosenObjects should be the name you want to display in the UML
      */
-    $chosenObjects['User'] = $users[0];
+    $chosenObjects['_User'] = $users[0];
 
     /*
      * Custum class (Temperature for demo)

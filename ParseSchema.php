@@ -1,4 +1,5 @@
 <?php
+
 namespace ParseSchema;
 
 /**
@@ -8,8 +9,11 @@ namespace ParseSchema;
  */
 class ParseSchema {
 
+    public $relations = array();
+
     public function getUML($chosenObjects) {
         $UML = "@startuml \n";
+
         $UML .= $this->parseDateClassPalm(); // We add Date class because it is available by default in all objects
         /*
          * First check if $chosenObjects is an array and is not empty
@@ -20,6 +24,10 @@ class ParseSchema {
 
         foreach ($chosenObjects as $ClassName => $value) {
             $UML .= $this->parsePalmClass($ClassName, $value);
+        }
+
+        foreach ($this->relations as $key => $value) {
+            $UML.= $key . ' -- ' . $value . "\n";
         }
         $UML .= "@enduml";
 
@@ -36,6 +44,8 @@ class ParseSchema {
         } else {
             $keys = $this->objectToArray($obj);
         }
+
+
 
         $palmClass = "class $ClassName { \n";
 
@@ -56,13 +66,15 @@ class ParseSchema {
     }
 
     private function objectToArray($parseObject) {
-
         $UserKeys = array();
         $json = ($parseObject->_encode());
         $array = json_decode($json);
 
         foreach ($array as $key => $value) {
             $UserKeys[$key] = $key;
+            if (is_object($parseObject->get($key))) {
+                $this->relations[$parseObject->getClassName()] = $parseObject->get($key)->getClassName();
+            }
             if (is_object($value) && ($key != "updatedAt" && $key != "createdAt")) {
                 $UserKeys[$key] = array();
                 foreach ($value as $key2 => $value2) {
