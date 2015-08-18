@@ -27,7 +27,7 @@ class ParseSchema {
         }
 
         foreach ($this->relations as $key => $value) {
-            $UML.= $key . ' -- ' . $value . "\n";
+            $UML.= $key . ' -- ' . $value['relationClass'] . ' : ' . $value['relationName'] . "\n";
         }
         $UML .= "@enduml";
 
@@ -73,7 +73,11 @@ class ParseSchema {
         foreach ($array as $key => $value) {
             $UserKeys[$key] = $key;
             if (is_object($parseObject->get($key))) {
-                $this->relations[$parseObject->getClassName()] = $parseObject->get($key)->getClassName();
+                //echo $key;
+                $asso = array();
+                $asso['relationName'] = $key;
+                $asso['relationClass'] = $parseObject->get($key)->getClassName();
+                $this->relations[$parseObject->getClassName()] = $asso;
             }
             if (is_object($value) && ($key != "updatedAt" && $key != "createdAt")) {
                 $UserKeys[$key] = array();
