@@ -12,7 +12,7 @@ use Parse\ParseException;
 use Parse\ParseClient;
 use ParseSchema\ParseSchema;
 
-require './autoload.php'; //if you didn't get the SDK using composer thn it should be require 'autoload.php';
+require './autoload.php'; //if you got the SDK using composer thn it should require 'vendor/autoload.php';
 require './config.php'; // This is where I stored the keys used in initialize line 20
 require './ParseSchema.php';
 

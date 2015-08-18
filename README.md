@@ -64,7 +64,7 @@ Then, ... **magic**!
 
 
 The file above outputs this diagram:
-![Generated UML](http://i.imgur.com/GMwCRUp.png)
+![Generated UML](http://i.imgur.com/sUypmRJ.png)
 
 ###TODO
 * Relation mapping.
